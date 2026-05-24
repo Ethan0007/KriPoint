@@ -1,0 +1,48 @@
+# Build outputs
+bin/
+obj/
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Rider
+.idea/
+
+# VS Code
+.vscode/
+
+# NuGet
+*.nupkg
+*.snupkg
+project.lock.json
+project.fragment.lock.json
+artifacts/
+packages/
+
+# Runtime
+*.log
+*.tmp
+
+# Sensitive config — never commit these
+appsettings.Development.json
+appsettings.Production.json
+appsettings.Staging.json
+
+# Secrets
+secrets.json
+*secrets*.json
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Test results
+TestResults/
+coverage/
+*.trx
+*.coveragexml

@@ -1,0 +1,22 @@
+﻿{
+  "name": "kripoint",
+  "version": "1.0.0",
+  "description": "AES-256-CBC axios interceptor + .NET middleware pair for encrypted HTTP payloads",
+  "type": "module",
+  "main": "./src/index.js",
+  "module": "./src/index.js",
+  "types": "./src/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./src/index.js",
+      "types": "./src/index.d.ts"
+    }
+  },
+  "files": ["src/"],
+  "peerDependencies": {
+    "axios": ">=1.0.0"
+  },
+  "keywords": ["kripoint", "axios", "interceptor", "encryption", "aes", "security", "enterprise"],
+  "license": "MIT",
+  "engines": { "node": ">=18.0.0" }
+}

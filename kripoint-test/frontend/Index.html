@@ -1,0 +1,446 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>KriPoint Test</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: 'Segoe UI', sans-serif;
+        background: #0f1117;
+        color: #e2e8f0;
+        min-height: 100vh;
+        padding: 2rem;
+      }
+
+      h1 {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 0.25rem;
+        color: #fff;
+      }
+
+      .subtitle {
+        font-size: 0.85rem;
+        color: #64748b;
+        margin-bottom: 2rem;
+      }
+
+      .card {
+        background: #1e2130;
+        border: 1px solid #2d3148;
+        border-radius: 10px;
+        padding: 1.25rem 1.5rem;
+        margin-bottom: 1.25rem;
+      }
+
+      .card-title {
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: #64748b;
+        margin-bottom: 0.75rem;
+      }
+
+      label {
+        display: block;
+        font-size: 0.8rem;
+        color: #94a3b8;
+        margin-bottom: 0.35rem;
+      }
+
+      input,
+      textarea {
+        width: 100%;
+        background: #0f1117;
+        border: 1px solid #2d3148;
+        border-radius: 6px;
+        padding: 0.6rem 0.75rem;
+        color: #e2e8f0;
+        font-family: 'Consolas', monospace;
+        font-size: 0.8rem;
+        margin-bottom: 0.75rem;
+        outline: none;
+        transition: border-color 0.15s;
+      }
+
+      input:focus,
+      textarea:focus {
+        border-color: #6366f1;
+      }
+
+      textarea {
+        resize: vertical;
+        min-height: 80px;
+      }
+
+      .row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+      }
+
+      button {
+        padding: 0.6rem 1.25rem;
+        border-radius: 6px;
+        border: none;
+        font-size: 0.85rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: opacity 0.15s;
+      }
+
+      button:hover {
+        opacity: 0.85;
+      }
+
+      .btn-primary {
+        background: #6366f1;
+        color: #fff;
+      }
+      .btn-secondary {
+        background: #1e2130;
+        color: #94a3b8;
+        border: 1px solid #2d3148;
+      }
+      .btn-success {
+        background: #059669;
+        color: #fff;
+      }
+
+      .btn-row {
+        display: flex;
+        gap: 0.5rem;
+        margin-top: 0.5rem;
+      }
+
+      .log-box {
+        background: #0f1117;
+        border: 1px solid #2d3148;
+        border-radius: 6px;
+        padding: 0.75rem;
+        font-family: 'Consolas', monospace;
+        font-size: 0.78rem;
+        min-height: 60px;
+        max-height: 200px;
+        overflow-y: auto;
+        white-space: pre-wrap;
+        word-break: break-all;
+        line-height: 1.6;
+      }
+
+      .log-entry {
+        margin-bottom: 0.35rem;
+      }
+      .log-ok {
+        color: #34d399;
+      }
+      .log-err {
+        color: #f87171;
+      }
+      .log-info {
+        color: #60a5fa;
+      }
+      .log-warn {
+        color: #fbbf24;
+      }
+      .log-dim {
+        color: #475569;
+      }
+
+      .badge {
+        display: inline-block;
+        font-size: 0.7rem;
+        font-weight: 600;
+        padding: 2px 8px;
+        border-radius: 4px;
+        margin-left: 0.5rem;
+      }
+
+      .badge-ok {
+        background: #064e3b;
+        color: #34d399;
+      }
+      .badge-err {
+        background: #450a0a;
+        color: #f87171;
+      }
+      .badge-wait {
+        background: #1e2130;
+        color: #64748b;
+      }
+
+      #status-badge {
+        transition: all 0.2s;
+      }
+
+      .divider {
+        border: none;
+        border-top: 1px solid #2d3148;
+        margin: 1rem 0;
+      }
+
+      .step-label {
+        font-size: 0.7rem;
+        font-weight: 700;
+        color: #6366f1;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        margin-bottom: 0.5rem;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>🔐 KriPoint — Test Page</h1>
+    <p class="subtitle">
+      Verifies AES-256-CBC encryption between browser and .NET 8 backend
+    </p>
+
+    <div class="card">
+      <div class="card-title">Configuration</div>
+
+      <div class="step-label">Step 1 — Paste your generated AES key</div>
+      <label>AES Key (Base64, 32 bytes)</label>
+      <input
+        id="aes-key"
+        type="text"
+        placeholder="Paste your VITE_KRIPOINT_KEY here..."
+      />
+
+      <div class="step-label">Step 2 — Set your backend URL</div>
+      <label>Backend URL</label>
+      <input id="backend-url" type="text" value="https://localhost:7001" />
+    </div>
+
+    <div class="card">
+      <div class="card-title">Step 3 — Send Encrypted Request</div>
+
+      <label>Request Body (JSON)</label>
+      <textarea id="request-body">
+{
+  "email": "joever@corp.com",
+  "fullName": "Joever Point",
+  "role": "admin",
+  "salary": 5000
+}</textarea
+      >
+
+      <label>Endpoint</label>
+      <input id="endpoint" type="text" value="/api/users" />
+
+      <div class="btn-row">
+        <button class="btn-primary" onclick="sendEncrypted()">
+          Send Encrypted POST ↗
+        </button>
+        <button class="btn-secondary" onclick="sendPlain()">
+          Send Plain POST (compare)
+        </button>
+        <button class="btn-secondary" onclick="clearLogs()">Clear</button>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="card">
+        <div class="card-title">
+          Wire Payload (what DevTools sees)
+          <span id="status-badge" class="badge badge-wait">waiting</span>
+        </div>
+        <div class="log-box" id="wire-log">
+          Encrypted payload will appear here...
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Server Response</div>
+        <div class="log-box" id="response-log">
+          Response will appear here...
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Console Log</div>
+      <div class="log-box" id="console-log">
+        Ready. Configure your key and backend URL above.
+      </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.8/axios.min.js"></script>
+    <script type="module">
+      const ALGO = 'AES-CBC'
+
+      function toBase64(buffer) {
+        return btoa(String.fromCharCode(...new Uint8Array(buffer)))
+      }
+
+      function fromBase64(b64) {
+        return Uint8Array.from(atob(b64), (c) => c.charCodeAt(0))
+      }
+
+      async function importKey(base64Key) {
+        return crypto.subtle.importKey(
+          'raw',
+          fromBase64(base64Key),
+          { name: ALGO },
+          false,
+          ['encrypt', 'decrypt'],
+        )
+      }
+
+      async function encrypt(value, base64Key) {
+        const key = await importKey(base64Key)
+        const iv = crypto.getRandomValues(new Uint8Array(16))
+        const plain = new TextEncoder().encode(JSON.stringify(value))
+        const cipher = await crypto.subtle.encrypt(
+          { name: ALGO, iv },
+          key,
+          plain,
+        )
+        return { payload: toBase64(cipher), iv: toBase64(iv) }
+      }
+
+      function log(msg, type = 'info') {
+        const box = document.getElementById('console-log')
+        const div = document.createElement('div')
+        div.className = `log-entry log-${type}`
+        div.textContent = `[${new Date().toLocaleTimeString()}] ${msg}`
+        box.appendChild(div)
+        box.scrollTop = box.scrollHeight
+      }
+
+      function setWire(data) {
+        document.getElementById('wire-log').textContent = JSON.stringify(
+          data,
+          null,
+          2,
+        )
+      }
+
+      function setResponse(data, isError = false) {
+        document.getElementById('response-log').textContent =
+          typeof data === 'string' ? data : JSON.stringify(data, null, 2)
+        if (isError) {
+          document.getElementById('response-log').style.color = '#f87171'
+        } else {
+          document.getElementById('response-log').style.color = ''
+        }
+      }
+
+      function setBadge(type) {
+        const badge = document.getElementById('status-badge')
+        badge.className = 'badge badge-' + type
+        badge.textContent =
+          type === 'ok' ? 'encrypted ✓' : type === 'err' ? 'error ✗' : 'waiting'
+      }
+
+      window.clearLogs = () => {
+        document.getElementById('wire-log').textContent =
+          'Encrypted payload will appear here...'
+        document.getElementById('response-log').textContent =
+          'Response will appear here...'
+        document.getElementById('console-log').textContent = ''
+        setBadge('wait')
+      }
+
+      window.sendEncrypted = async () => {
+        const key = document.getElementById('aes-key').value.trim()
+        const baseURL = document.getElementById('backend-url').value.trim()
+        const endpoint = document.getElementById('endpoint').value.trim()
+        let body
+
+        if (!key) {
+          log('⚠ Paste your AES key first.', 'warn')
+          return
+        }
+
+        try {
+          body = JSON.parse(document.getElementById('request-body').value)
+        } catch {
+          log('⚠ Request body is not valid JSON.', 'warn')
+          return
+        }
+
+        try {
+          log('Encrypting payload...', 'info')
+          const encrypted = await encrypt(body, key)
+
+          log(
+            `Wire payload → payload: ${encrypted.payload.slice(0, 24)}... iv: ${encrypted.iv}`,
+            'dim',
+          )
+          setWire(encrypted)
+          setBadge('ok')
+
+          log(`Sending POST to ${baseURL}${endpoint}...`, 'info')
+
+          const response = await axios.post(
+            `${baseURL}${endpoint}`,
+            encrypted,
+            {
+              headers: {
+                'Content-Type': 'application/json',
+                'X-KriPoint': '1',
+              },
+            },
+          )
+
+          log(
+            `✓ Response ${response.status}: ${JSON.stringify(response.data).slice(0, 80)}`,
+            'ok',
+          )
+          setResponse(response.data)
+        } catch (err) {
+          setBadge('err')
+          const msg = err.response
+            ? `HTTP ${err.response.status}: ${JSON.stringify(err.response.data)}`
+            : err.message
+          log(`✗ ${msg}`, 'err')
+          setResponse(msg, true)
+        }
+      }
+
+      window.sendPlain = async () => {
+        const baseURL = document.getElementById('backend-url').value.trim()
+        const endpoint = document.getElementById('endpoint').value.trim()
+        let body
+
+        try {
+          body = JSON.parse(document.getElementById('request-body').value)
+        } catch {
+          log('⚠ Request body is not valid JSON.', 'warn')
+          return
+        }
+
+        log(
+          'Sending PLAIN (unencrypted) POST — server should reject with 400...',
+          'warn',
+        )
+        setWire(body)
+
+        try {
+          const response = await axios.post(`${baseURL}${endpoint}`, body, {
+            headers: { 'Content-Type': 'application/json' },
+          })
+          log(
+            `Response ${response.status} — server accepted plain body (middleware may be off)`,
+            'warn',
+          )
+          setResponse(response.data)
+        } catch (err) {
+          const msg = err.response
+            ? `HTTP ${err.response.status}: ${JSON.stringify(err.response.data)}`
+            : err.message
+          log(`✓ Server rejected plain request: ${msg}`, 'ok')
+          setResponse(msg, true)
+        }
+      }
+    </script>
+  </body>
+</html>
