@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("KriPoint.TestApi")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+cf4e435f8286542a5d3d0eedbb413eb246e4390a")]
 [assembly: System.Reflection.AssemblyProductAttribute("KriPoint.TestApi")]
 [assembly: System.Reflection.AssemblyTitleAttribute("KriPoint.TestApi")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Library\\kripoint-test\\backend\\KriPoint.TestApi.csproj": {}
+    "D:\\Library\\github\\kripoint-test\\backend\\KriPoint.TestApi.csproj": {}
   },
   "projects": {
-    "D:\\Library\\kripoint-test\\backend\\KriPoint.TestApi.csproj": {
+    "D:\\Library\\github\\kripoint-test\\backend\\KriPoint.TestApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Library\\kripoint-test\\backend\\KriPoint.TestApi.csproj",
+        "projectUniqueName": "D:\\Library\\github\\kripoint-test\\backend\\KriPoint.TestApi.csproj",
         "projectName": "KriPoint.TestApi",
-        "projectPath": "D:\\Library\\kripoint-test\\backend\\KriPoint.TestApi.csproj",
+        "projectPath": "D:\\Library\\github\\kripoint-test\\backend\\KriPoint.TestApi.csproj",
         "packagesPath": "C:\\Users\\Joever Monceda\\.nuget\\packages\\",
-        "outputPath": "D:\\Library\\kripoint-test\\backend\\obj\\",
+        "outputPath": "D:\\Library\\github\\kripoint-test\\backend\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
